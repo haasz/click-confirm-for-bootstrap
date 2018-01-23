@@ -31,6 +31,8 @@
 
 			<p class="lead">Bootstrap v3 test</p>
 
+			<h3>Normal mode</h3>
+
 			<p>
 				<a class="btn btn-lg btn-primary" href="https://gitlab.com/haasz/click-confirm-for-bootstrap"
 					data-click-confirm
@@ -41,6 +43,49 @@
 				>
 					Click here!
 				</a>
+			</p>
+
+			<h3>Protected mode</h3>
+
+			<p>Link with <code>href=""</code> attribute (and with default texts):</p>
+
+			<p>
+				<a class="btn btn-lg btn-success" href=""
+					data-click-confirm
+					data-click-confirm-href="https://gitlab.com/haasz/click-confirm-for-bootstrap"
+				>
+					Click here!
+				</a>
+			</p>
+
+			<p>Link with <code>href="javascript:void(0);"</code> attribute:</p>
+
+			<p>
+				<a class="btn btn-lg btn-success" href="javascript:void(0);"
+					data-click-confirm
+					data-click-confirm-href="https://gitlab.com/haasz/click-confirm-for-bootstrap"
+					data-click-confirm-text-title="Click confirm"
+					data-click-confirm-text-question="Sure?"
+					data-click-confirm-text-no="No"
+					data-click-confirm-text-ok="Yes"
+				>
+					Click here!
+				</a>
+			</p>
+
+			<p>Button:</p>
+
+			<p>
+				<button type="button" class="btn btn-lg btn-success"
+					data-click-confirm
+					data-click-confirm-href="https://gitlab.com/haasz/click-confirm-for-bootstrap"
+					data-click-confirm-text-title="Click confirm"
+					data-click-confirm-text-question="Sure?"
+					data-click-confirm-text-no="No"
+					data-click-confirm-text-ok="Yes"
+				>
+					Click here!
+				</button>
 			</p>
 
 		</div>
