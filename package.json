@@ -1,0 +1,23 @@
+{
+  "name": "click-confirm-for-bootstrap",
+  "version": "0.0.0",
+  "description": "Click confirm (for Bootstrap)",
+  "main": "dist/click-confirm.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/haasz/click-confirm-for-bootstrap.git"
+  },
+  "keywords": [
+    "click confirm for Bootstrap",
+    "click confirm",
+    "confirm",
+    "click",
+    "Bootstrap"
+  ],
+  "author": "Haász Sándor <haasz@haasz-sandor.hu>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/haasz/click-confirm-for-bootstrap/issues"
+  },
+  "homepage": "https://gitlab.com/haasz/click-confirm-for-bootstrap#README"
+}
