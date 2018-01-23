@@ -1,9 +1,9 @@
 /*!
- * Click confirm v1.2.0 (for Bootstrap)
+ * Click confirm v1.3.0 (for Bootstrap)
  * Copyright (c) 2018 Haasz Sandor, http://haasz-sandor.hu
  * Released under the MIT license
  */
-(function () {
+(function (options) {
 
 	'use strict';
 
@@ -235,12 +235,43 @@
 
 	}
 
+	function config(options) {
+		if (options && typeof options === 'object') {
+			for (var key in defaultOptions) {
+				if (defaultOptions.hasOwnProperty(key)) {
+					if (typeof options[key] !== 'undefined') {
+						defaultOptions[key] = '' + options[key];
+					}
+				}
+			}
+		}
+	}
+
+
+	// INITIALIZATION
+
+	// Add config method
+	clickConfirm.config = config;
+
+	// Click confirm (global function)
+	window.clickConfirm = clickConfirm;
+
+	// Set default configuration
+	window.clickConfirm.config(options);
+
 	// Set click confirm to the specified elements
 	$(function () {
 		$('.click-confirm, [data-click-confirm]').click(clickConfirm);
 	});
 
-	// Click confirm (global function)
-	window.clickConfirm = clickConfirm;
-
-})();
+})(
+/*!
+ *	// Custom default options
+ *	{
+ *		title: 'Confirm',
+ *		question: 'Are you sure you want to click on it?',
+ *		no: 'Cancel',
+ *		ok: 'OK'
+ *	}
+ */
+);
