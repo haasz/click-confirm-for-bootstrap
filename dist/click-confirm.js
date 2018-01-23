@@ -1,5 +1,5 @@
 /*!
- * Click confirm v1.0.0 (for Bootstrap)
+ * Click confirm v1.2.0 (for Bootstrap)
  * Copyright (c) 2018 Haasz Sandor, http://haasz-sandor.hu
  * Released under the MIT license
  */
@@ -106,6 +106,16 @@
 		};
 	}
 
+	function getAbsoluteUrl(url) {
+		var div = document.createElement('div');
+		div.appendChild(
+			document.createElement('a')
+		);
+		div.firstChild.href = url;
+		div.innerHTML = div.innerHTML;
+		return ('' + div.firstChild.href);
+	}
+
 	function setModal(modal, options) {
 		var $modal = $(modal);
 		// Subtitles
@@ -120,9 +130,54 @@
 					.on(
 						'hidden.bs.modal',
 						function (event) {
+
+							var clickedElement = options.clickedElement;
+							var isProtected = clickedElement.hasAttribute('data-click-confirm-href');
+							var tagName;
+							var isHyperLink;
+							var href;
+
+							// Preprocessing
+							if (isProtected) {
+								tagName = clickedElement.tagName.toLowerCase();
+								isHyperLink = (
+									tagName === 'a'
+									||
+									tagName === 'area'
+								);
+								if (isHyperLink) {
+									href = (
+										clickedElement.hasAttribute('href')
+										? clickedElement.getAttribute('href')
+										: undefined
+									);
+									clickedElement.setAttribute(
+										'href',
+										clickedElement.getAttribute('data-click-confirm-href')
+									);
+								}
+							}
+
 							// Click
 							clickedElement.isClickConfirmed = true;
 							clickedElement.click();
+
+							// Postprocessing
+							if (isProtected) {
+								if (isHyperLink) {
+									if (typeof href !== 'undefined') {
+										clickedElement.setAttribute('href', href);
+									}
+									else {
+										clickedElement.removeAttribute('href');
+									}
+								}
+								else {
+									window.location.href = getAbsoluteUrl(
+										clickedElement.getAttribute('data-click-confirm-href')
+									);
+								}
+							}
 						}
 					)
 				;
