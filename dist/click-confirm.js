@@ -36,6 +36,9 @@
 
 	// CLICK CONFIRM
 
+	// Bindig selector
+	var bindingSelector = '.click-confirm, [data-click-confirm]';
+
 	// Default options
 	var defaultOptions = {
 		title: 'Confirm',
@@ -261,7 +264,7 @@
 
 	// Set click confirm to the specified elements
 	$(function () {
-		$('.click-confirm, [data-click-confirm]').click(clickConfirm);
+		$(bindingSelector).click(clickConfirm);
 	});
 
 })(
