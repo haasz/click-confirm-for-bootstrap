@@ -240,13 +240,24 @@
 
 	}
 
+	/**
+	 * Modify the default configuration.
+	 *
+	 * @this clickConfirm
+	 *
+	 * @param  {Object} [options] The options.
+	 *
+	 * @return {Function}         The "this" (to chaining), that is the clickConfirm function.
+	 */
 	function config(options) {
-		// Set text options
-		if (options.text && typeof options.text === 'object') {
-			for (var option in defaultOptions.text) {
-				if (defaultOptions.text.hasOwnProperty(option)) {
-					if (typeof options.text[option] !== 'undefined') {
-						defaultOptions.text[option] = '' + options.text[option];
+		if (options && typeof options === 'object') {
+			// Set text options
+			if (options.text && typeof options.text === 'object') {
+				for (var option in defaultOptions.text) {
+					if (defaultOptions.text.hasOwnProperty(option)) {
+						if (typeof options.text[option] !== 'undefined') {
+							defaultOptions.text[option] = '' + options.text[option];
+						}
 					}
 				}
 			}
