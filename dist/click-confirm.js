@@ -41,10 +41,12 @@
 
 	// Default options
 	var defaultOptions = {
-		title: 'Confirm',
-		question: 'Are you sure you want to click on it?',
-		no: 'Cancel',
-		ok: 'OK'
+		text: {
+			title: 'Confirm',
+			question: 'Are you sure you want to click on it?',
+			no: 'Cancel',
+			ok: 'OK'
+		}
 	};
 
 	// Modal (HTML string)
@@ -91,21 +93,21 @@
 		return parent.childNodes[0];
 	}
 
-	function getOption(clickedElement, option) {
+	function getTextOption(clickedElement, option) {
 		return (
 			clickedElement.hasAttribute('data-click-confirm-text-' + option)
 			? clickedElement.getAttribute('data-click-confirm-text-' + option)
-			: defaultOptions[option]
+			: defaultOptions.text[option]
 		);
 	}
 
 	function getOptions(clickedElement) {
 		return {
 			clickedElement: clickedElement,
-			title: getOption(clickedElement, 'title'),
-			question: getOption(clickedElement, 'question'),
-			no: getOption(clickedElement, 'no'),
-			ok: getOption(clickedElement, 'ok')
+			title: getTextOption(clickedElement, 'title'),
+			question: getTextOption(clickedElement, 'question'),
+			no: getTextOption(clickedElement, 'no'),
+			ok: getTextOption(clickedElement, 'ok')
 		};
 	}
 
@@ -239,15 +241,17 @@
 	}
 
 	function config(options) {
-		if (options && typeof options === 'object') {
-			for (var key in defaultOptions) {
-				if (defaultOptions.hasOwnProperty(key)) {
-					if (typeof options[key] !== 'undefined') {
-						defaultOptions[key] = '' + options[key];
+		// Set text options
+		if (options.text && typeof options.text === 'object') {
+			for (var option in defaultOptions.text) {
+				if (defaultOptions.text.hasOwnProperty(option)) {
+					if (typeof options.text[option] !== 'undefined') {
+						defaultOptions.text[option] = '' + options.text[option];
 					}
 				}
 			}
 		}
+		return this;
 	}
 
 
@@ -271,10 +275,15 @@
 /*!
  *	// Custom default options
  *	{
- *		title: 'Confirm',
- *		question: 'Are you sure you want to click on it?',
- *		no: 'Cancel',
- *		ok: 'OK'
+ *
+ *		// Texts in modal
+ *		text: {
+ *			title: 'Confirm',
+ *			question: 'Are you sure you want to click on it?',
+ *			no: 'Cancel',
+ *			ok: 'OK'
+ *		}
+ *
  *	}
  */
 );
