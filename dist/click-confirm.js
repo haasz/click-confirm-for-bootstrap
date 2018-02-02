@@ -241,6 +241,33 @@
 	}
 
 	/**
+	 * Bind the clickConfirm to the specified target or child element(s).
+	 *
+	 * @this clickConfirm
+	 *
+	 * @param  {Element|string} [target] The target (element or selector, default: document).
+	 *
+	 * @return {Function}                The "this" (to chaining), that is the clickConfirm function.
+	 */
+	function bind(target) {
+		var $bindingTarget;
+		if (typeof target !== 'undefined') {
+			var $target = $(target);
+			var $filteredTarget = $target.filter(bindingSelector);
+			$bindingTarget =
+				$filteredTarget.length
+				? $filteredTarget
+				: $target.find(bindingSelector)
+			;
+		}
+		else {
+			$bindingTarget = $(bindingSelector);
+		}
+		$bindingTarget.click(this);
+		return this;
+	}
+
+	/**
 	 * Modify the default configuration.
 	 *
 	 * @this clickConfirm
@@ -268,6 +295,9 @@
 
 	// INITIALIZATION
 
+	// Add bind method
+	clickConfirm.bind = bind;
+
 	// Add config method
 	clickConfirm.config = config;
 
@@ -279,7 +309,7 @@
 
 	// Set click confirm to the specified elements
 	$(function () {
-		$(bindingSelector).click(clickConfirm);
+		window.clickConfirm.bind();
 	});
 
 })(
