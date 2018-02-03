@@ -1,5 +1,5 @@
 /*!
- * Click confirm v1.4.0 (for Bootstrap)
+ * Click confirm v1.5.0 (for Bootstrap)
  * Copyright (c) 2018 Haasz Sandor, http://haasz-sandor.hu
  * Released under the MIT license
  */
