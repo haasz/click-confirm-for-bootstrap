@@ -241,6 +241,28 @@
 
 	}
 
+	function listener(event) {
+		// Event (cross browser)
+		event = event || window.event;
+		// Clicked element
+		var clickedElement;
+		for (
+			var target = event.target
+			; target && target !== this.parentNode
+			; target = target.parentNode
+		) {
+			if ($(target).filter(bindingSelector).length) {
+				clickedElement = target;
+				break;
+			}
+		}
+		return (
+			clickedElement
+			? clickConfirm.call(clickedElement, event)
+			: true
+		);
+	}
+
 	function init() {
 		switch (defaultOptions.mode) {
 			// Auto binding
@@ -285,6 +307,37 @@
 	}
 
 	/**
+	 * Set listening on the target element(s) and dynamic binding the clickConfirm to the specified element(s) in the target element(s).
+	 * (Supported IE 9+)
+	 *
+	 * @this clickConfirm
+	 *
+	 * @param  {Element|string} [target] The target (element or selector, default: document.documentElement).
+	 *
+	 * @return {Function}                The "this" (to chaining), that is the clickConfirm function.
+	 */
+	function listen(target) {
+		var $target =
+			$(
+				typeof target === 'undefined'
+				? document.documentElement
+				: target
+			)
+		;
+		// Modern browsers (IE 9+)
+		if (window.addEventListener) {
+			$target.each(function () {
+				this.addEventListener('click', listener, true);
+			});
+		}
+		// Old browsers (IE 8 or older) (Not supported!)
+		else {
+			$target.click(listener);
+		}
+		return this;
+	}
+
+	/**
 	 * Modify the default configuration.
 	 *
 	 * @this clickConfirm
@@ -323,6 +376,9 @@
 
 	// Add bind method
 	clickConfirm.bind = bind;
+
+	// Add listen method (supported IE 9+)
+	clickConfirm.listen = listen;
 
 	// Add config method
 	clickConfirm.config = config;
