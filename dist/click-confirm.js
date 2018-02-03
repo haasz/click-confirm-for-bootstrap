@@ -265,6 +265,10 @@
 
 	function init() {
 		switch (defaultOptions.mode) {
+			// Auto listening
+			case 2:
+				window.clickConfirm.listen();
+				break;
 			// Auto binding
 			case 1:
 				// Set click confirm to the specified elements
@@ -350,6 +354,7 @@
 		if (options && typeof options === 'object') {
 			// Set mode option
 			switch (options.mode) {
+				case 2:
 				case 1:
 				case 0:
 					defaultOptions.mode = options.mode;
@@ -398,6 +403,7 @@
  *	{
  *
  *		// Modes:
+ *		// 	2 - auto listening and dynamic binding (supported IE 9+)
  *		// 	1 - auto binding when document is ready (default)
  *		// 	0 - no binding
  *		mode: 1,
