@@ -41,6 +41,7 @@
 
 	// Default options
 	var defaultOptions = {
+		mode: 1,
 		text: {
 			title: 'Confirm',
 			question: 'Are you sure you want to click on it?',
@@ -240,6 +241,22 @@
 
 	}
 
+	function init() {
+		switch (defaultOptions.mode) {
+			// Auto binding
+			case 1:
+				// Set click confirm to the specified elements
+				$(function () {
+					window.clickConfirm.bind();
+				});
+				break;
+			// Nothing
+			case 0:
+			default:
+				break;
+		}
+	}
+
 	/**
 	 * Bind the clickConfirm to the specified target or child element(s).
 	 *
@@ -278,6 +295,15 @@
 	 */
 	function config(options) {
 		if (options && typeof options === 'object') {
+			// Set mode option
+			switch (options.mode) {
+				case 1:
+				case 0:
+					defaultOptions.mode = options.mode;
+					break;
+				default:
+					break;
+			}
 			// Set text options
 			if (options.text && typeof options.text === 'object') {
 				for (var option in defaultOptions.text) {
@@ -307,15 +333,18 @@
 	// Set default configuration
 	window.clickConfirm.config(options);
 
-	// Set click confirm to the specified elements
-	$(function () {
-		window.clickConfirm.bind();
-	});
+	// Initialization depending on the mode
+	init();
 
 })(
 /*!
  *	// Custom default options
  *	{
+ *
+ *		// Modes:
+ *		// 	1 - auto binding when document is ready (default)
+ *		// 	0 - no binding
+ *		mode: 1,
  *
  *		// Texts in modal
  *		text: {
