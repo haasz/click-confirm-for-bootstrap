@@ -42,6 +42,7 @@
 	// Default options
 	var defaultOptions = {
 		mode: 1,
+		fullStop: false,
 		text: {
 			title: 'Confirm',
 			question: 'Are you sure you want to click on it?',
@@ -215,6 +216,8 @@
 		if (event.preventDefault) { event.preventDefault(); }
 		// Stop propagation (cross browser)
 		if (event.stopPropagation) { event.stopPropagation(); } else { event.cancelBubble = true; }
+		// Stop the propagation immediately
+		if (defaultOptions.fullStop && event.stopImmediatePropagation) { event.stopImmediatePropagation(); }
 
 		// Get modal
 		var modal = getModal(clickedElement);
@@ -362,6 +365,10 @@
 				default:
 					break;
 			}
+			// Set fullStop option
+			if (typeof options.fullStop !== 'undefined') {
+				defaultOptions.fullStop = !!options.fullStop;
+			}
 			// Set text options
 			if (options.text && typeof options.text === 'object') {
 				for (var option in defaultOptions.text) {
@@ -407,6 +414,9 @@
  *		// 	1 - auto binding when document is ready (default)
  *		// 	0 - no binding
  *		mode: 1,
+ *
+ *		// Full stop (supported IE 9+, default: false)
+ *		fullStop: false,
  *
  *		// Texts in modal
  *		text: {
