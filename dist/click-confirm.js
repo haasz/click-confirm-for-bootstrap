@@ -43,7 +43,7 @@
 
 	// Default options
 	var defaultOptions = {
-		mode: 1,
+		mode: 2,
 		fullStop: false,
 		text: {
 			title: 'Confirm',
@@ -411,10 +411,10 @@
  *	{
  *
  *		// Modes:
- *		// 	2 - auto listening and dynamic binding
- *		// 	1 - auto binding when document is ready (default)
+ *		// 	2 - auto listening and dynamic binding (default)
+ *		// 	1 - auto binding when document is ready
  *		// 	0 - no binding
- *		mode: 1,
+ *		mode: 2,
  *
  *		// Full stop (default: false)
  *		fullStop: false,
