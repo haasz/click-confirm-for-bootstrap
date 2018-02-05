@@ -2,6 +2,8 @@
  * Click confirm v1.9.0 (for Bootstrap)
  * Copyright (c) 2018 Haasz Sandor, http://haasz-sandor.hu
  * Released under the MIT license
+ *
+ * Supported all modern browsers and IE 9+
  */
 (function (options) {
 
@@ -216,7 +218,7 @@
 		if (event.preventDefault) { event.preventDefault(); }
 		// Stop propagation (cross browser)
 		if (event.stopPropagation) { event.stopPropagation(); } else { event.cancelBubble = true; }
-		// Stop the propagation immediately
+		// Stop the propagation immediately (all modern browsers and IE 9+)
 		if (defaultOptions.fullStop && event.stopImmediatePropagation) { event.stopImmediatePropagation(); }
 
 		// Get modal
@@ -315,7 +317,6 @@
 
 	/**
 	 * Set listening on the target element(s) and dynamic binding the clickConfirm to the specified element(s) in the target element(s).
-	 * (Supported IE 9+)
 	 *
 	 * @this clickConfirm
 	 *
@@ -331,7 +332,7 @@
 				: target
 			)
 		;
-		// Modern browsers (IE 9+)
+		// All modern browsers and IE 9+
 		if (window.addEventListener) {
 			$target.each(function () {
 				this.addEventListener('click', listener, true);
@@ -389,7 +390,7 @@
 	// Add bind method
 	clickConfirm.bind = bind;
 
-	// Add listen method (supported IE 9+)
+	// Add listen method
 	clickConfirm.listen = listen;
 
 	// Add config method
@@ -410,12 +411,12 @@
  *	{
  *
  *		// Modes:
- *		// 	2 - auto listening and dynamic binding (supported IE 9+)
+ *		// 	2 - auto listening and dynamic binding
  *		// 	1 - auto binding when document is ready (default)
  *		// 	0 - no binding
  *		mode: 1,
  *
- *		// Full stop (supported IE 9+, default: false)
+ *		// Full stop (default: false)
  *		fullStop: false,
  *
  *		// Texts in modal
