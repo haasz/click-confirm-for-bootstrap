@@ -407,26 +407,26 @@
 
 })(
 /*!
- *	// Custom default options
- *	{
- *
- *		// Modes:
- *		// 	2 - auto listening and dynamic binding (default)
- *		// 	1 - auto binding when document is ready
- *		// 	0 - no binding
- *		mode: 2,
- *
- *		// Full stop (default: false)
- *		fullStop: false,
- *
- *		// Texts in modal
- *		text: {
- *			title: 'Confirm',
- *			question: 'Are you sure you want to click on it?',
- *			no: 'Cancel',
- *			ok: 'OK'
- *		}
- *
- *	}
- */
+	// Custom default options
+	{
+
+		// Modes:
+		// 	2 - auto listening and dynamic binding (default)
+		// 	1 - auto binding when document is ready
+		// 	0 - no binding
+		mode: 2,
+
+		// Full stop (default: false)
+		fullStop: false,
+
+		// Texts in modal
+		text: {
+			title: 'Confirm',
+			question: 'Are you sure you want to click on it?',
+			no: 'Cancel',
+			ok: 'OK'
+		}
+
+	}
+*/
 );
