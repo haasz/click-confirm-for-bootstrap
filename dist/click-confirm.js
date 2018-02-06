@@ -44,7 +44,7 @@
 	// Default options
 	var defaultOptions = {
 		mode: 2,
-		fullStop: false,
+		fullStop: true,
 		text: {
 			title: 'Confirm',
 			question: 'Are you sure you want to click on it?',
@@ -416,8 +416,8 @@
 		// 	0 - no binding
 		mode: 2,
 
-		// Full stop (default: false)
-		fullStop: false,
+		// Full stop (default: true)
+		fullStop: true,
 
 		// Texts in modal
 		text: {
