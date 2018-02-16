@@ -100,7 +100,7 @@
 	function getTextOption(clickedElement, option) {
 		return (
 			clickedElement.hasAttribute('data-click-confirm-text-' + option)
-			? clickedElement.getAttribute('data-click-confirm-text-' + option)
+			? '' + clickedElement.getAttribute('data-click-confirm-text-' + option)
 			: defaultOptions.text[option]
 		);
 	}
