@@ -374,9 +374,7 @@
 			if (options.text && typeof options.text === 'object') {
 				for (var option in defaultOptions.text) {
 					if (defaultOptions.text.hasOwnProperty(option)) {
-						if (typeof options.text[option] !== 'undefined') {
-							defaultOptions.text[option] = '' + options.text[option];
-						}
+						defaultOptions.text[option] = '' + options.text[option];
 					}
 				}
 			}
