@@ -367,7 +367,7 @@
 					break;
 			}
 			// Set fullStop option
-			if (typeof options.fullStop !== 'undefined') {
+			if ('fullStop' in options) {
 				defaultOptions.fullStop = !!options.fullStop;
 			}
 			// Set text options
