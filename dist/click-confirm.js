@@ -407,7 +407,6 @@
 /*!
 	// Custom default options
 	{
-
 		// Modes:
 		// 	2 - auto listening and dynamic binding (default)
 		// 	1 - auto binding when document is ready
@@ -417,14 +416,20 @@
 		// Full stop (default: true)
 		fullStop: true,
 
-		// Texts in modal
+		// Texts
 		text: {
+			// Title (default: 'Confirm')
 			title: 'Confirm',
+
+			// Question (default: 'Are you sure you want to click on it?')
 			question: 'Are you sure you want to click on it?',
+
+			// No (default: 'Cancel')
 			no: 'Cancel',
+
+			// OK (default: 'OK')
 			ok: 'OK'
 		}
-
 	}
 */
 );
