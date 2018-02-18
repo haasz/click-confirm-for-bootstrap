@@ -15,24 +15,24 @@
 	// window (global scope, see (hungarian): http://weblabor.hu/blog/20100813/global-scope-elerese)
 	var window = (0, eval)('this') || Function('return this')();
 	if (!(window && typeof window === 'object' && window === window.window)) {
-		throw new Error('Click confirm requires window');
+		throw new Error('The Click confirm requires window');
 	}
 
 	// document
 	var document = window.document;
 	if (!document) {
-		throw new Error('Click confirm requires document');
+		throw new Error('The Click confirm requires document');
 	}
 
 	// jQuery
 	var $ = window.jQuery;
 	if (!$) {
-		throw new Error('Click confirm requires jQuery');
+		throw new Error('The Click confirm requires jQuery');
 	}
 
 	// Bootstrap
 	if (typeof $.fn.modal !== 'function') {
-		throw new Error('Click confirm requires Bootstrap');
+		throw new Error('The Click confirm requires Bootstrap');
 	}
 
 
