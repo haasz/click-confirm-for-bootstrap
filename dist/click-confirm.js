@@ -268,28 +268,18 @@
 		);
 	}
 
-	function init() {
-		switch (defaultOptions.mode) {
-			// Auto listening
-			case 2:
-				window.clickConfirm.listen();
-				break;
-			// Auto binding
-			case 1:
-				// Set click confirm to the specified elements
-				$(function () {
-					window.clickConfirm.bind();
-				});
-				break;
-			// Nothing
-			case 0:
-			default:
-				break;
-		}
-	}
+
+	// The last document.ready call id
+	var readyCallId = 0;
+
+	// The targets of listenings
+	var $listeningTargets = [];
+
+	// Is the mode set?
+	var isModeSet = false;
 
 	/**
-	 * Bind the clickConfirm to the specified target or child element(s).
+	 * Bind the clickConfirm from the target or child elements to the specified ones.
 	 *
 	 * @this clickConfirm
 	 *
@@ -298,25 +288,48 @@
 	 * @return {Function}                The "this" (to chaining), that is the clickConfirm function.
 	 */
 	function bind(target) {
-		var $bindingTarget;
-		if (typeof target !== 'undefined') {
-			var $target = $(target);
-			var $filteredTarget = $target.filter(bindingSelector);
-			$bindingTarget =
-				$filteredTarget.length
-				? $filteredTarget
-				: $target.find(bindingSelector)
-			;
-		}
-		else {
-			$bindingTarget = $(bindingSelector);
-		}
-		$bindingTarget.click(this);
+		var id = ++readyCallId;
+		$(function () {
+			if (id === readyCallId) {
+				var $bindingTarget;
+				if (typeof target !== 'undefined') {
+					var $target = $(target);
+					var $filteredTarget = $target.filter(bindingSelector);
+					$bindingTarget =
+						$filteredTarget.length
+						? $filteredTarget
+						: $target.find(bindingSelector)
+					;
+				}
+				else {
+					$bindingTarget = $(bindingSelector);
+				}
+				// Bind
+				$bindingTarget.click(clickConfirm);
+			}
+		});
 		return this;
 	}
 
 	/**
-	 * Set listening on the target element(s) and dynamic binding the clickConfirm to the specified element(s) in the target element(s).
+	 * Unbind the clickConfirm from all specified elements.
+	 *
+	 * @this clickConfirm
+	 *
+	 * @return {Function} The "this" (to chaining), that is the clickConfirm function.
+	 */
+	function resetBind() {
+		// Inactivate the previous document.ready call
+		++readyCallId;
+		$(function () {
+			// Unbind
+			$(bindingSelector).off('click', clickConfirm);
+		});
+		return this;
+	}
+
+	/**
+	 * Set the listening on the target element(s) and dynamic binding the clickConfirm to the specified element(s) in the target element(s).
 	 *
 	 * @this clickConfirm
 	 *
@@ -325,23 +338,48 @@
 	 * @return {Function}                The "this" (to chaining), that is the clickConfirm function.
 	 */
 	function listen(target) {
-		var $target =
+		var $listeningTarget =
 			$(
 				typeof target === 'undefined'
 				? document.documentElement
 				: target
 			)
 		;
+		$listeningTargets.push($listeningTarget);
 		// All modern browsers and IE 9+
 		if (window.addEventListener) {
-			$target.each(function () {
+			$listeningTarget.each(function () {
 				this.addEventListener('click', listener, true);
 			});
 		}
 		// Old browsers (IE 8 or older) (Not supported!)
 		else {
-			$target.click(listener);
+			$listeningTarget.click(listener);
 		}
+		return this;
+	}
+
+	/**
+	 * Remove all previously set listening (dynamic binding).
+	 *
+	 * @this clickConfirm
+	 *
+	 * @return {Function} The "this" (to chaining), that is the clickConfirm function.
+	 */
+	function resetListen() {
+		for (var i = $listeningTargets.length - 1; i >= 0; --i) {
+			// All modern browsers and IE 9+
+			if (window.addEventListener) {
+				$listeningTargets[i].each(function () {
+					this.removeEventListener('click', listener, true);
+				});
+			}
+			// Old browsers (IE 8 or older) (Not supported!)
+			else {
+				$listeningTargets[i].off('click', listener);
+			}
+		}
+		$listeningTargets = [];
 		return this;
 	}
 
@@ -355,12 +393,19 @@
 	 * @return {Function}         The "this" (to chaining), that is the clickConfirm function.
 	 */
 	function config(options) {
+		// Set default options
 		if (options && typeof options === 'object') {
 			// Set mode option
 			switch (options.mode) {
 				case 2:
 				case 1:
 				case 0:
+					if (isModeSet) {
+						// Reset
+						clickConfirm.resetListen();
+						clickConfirm.resetBind();
+						isModeSet = false;
+					}
 					defaultOptions.mode = options.mode;
 					break;
 				default:
@@ -379,6 +424,24 @@
 				}
 			}
 		}
+		// Set mode
+		if (!isModeSet) {
+			switch (defaultOptions.mode) {
+				// Auto listening
+				case 2:
+					clickConfirm.listen();
+					break;
+				// Auto binding
+				case 1:
+					clickConfirm.bind();
+					break;
+				// Nothing
+				case 0:
+				default:
+					break;
+			}
+			isModeSet = true;
+		}
 		return this;
 	}
 
@@ -388,20 +451,23 @@
 	// Add bind method
 	clickConfirm.bind = bind;
 
+	// Add resetBind method
+	clickConfirm.resetBind = resetBind;
+
 	// Add listen method
 	clickConfirm.listen = listen;
+
+	// Add resetListen method
+	clickConfirm.resetListen = resetListen;
 
 	// Add config method
 	clickConfirm.config = config;
 
-	// Click confirm (global function)
-	window.clickConfirm = clickConfirm;
-
 	// Set default configuration
-	window.clickConfirm.config(options);
+	clickConfirm.config(options);
 
-	// Initialization depending on the mode
-	init();
+	// The clickConfirm (global function)
+	window.clickConfirm = clickConfirm;
 
 })(
 /*!
