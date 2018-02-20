@@ -45,6 +45,7 @@
 	var defaultOptions = {
 		mode: 2,
 		fullStop: true,
+		language: undefined,
 		text: {
 			title: 'Confirm',
 			question: 'Are you sure you want to click on it?',
@@ -97,6 +98,14 @@
 		return parent.childNodes[0];
 	}
 
+	function getLanguageOption(clickedElement) {
+		if (clickedElement.hasAttribute('data-click-confirm-language')) {
+			var language = clickedElement.getAttribute('data-click-confirm-language');
+			return language ? '' + language : undefined;
+		}
+		return defaultOptions.language;
+	}
+
 	function getTextOption(clickedElement, option) {
 		return (
 			clickedElement.hasAttribute('data-click-confirm-text-' + option)
@@ -108,6 +117,7 @@
 	function getOptions(clickedElement) {
 		return {
 			clickedElement: clickedElement,
+			language: getLanguageOption(clickedElement),
 			title: getTextOption(clickedElement, 'title'),
 			question: getTextOption(clickedElement, 'question'),
 			no: getTextOption(clickedElement, 'no'),
@@ -127,6 +137,10 @@
 
 	function setModal(modal, options) {
 		var $modal = $(modal);
+		// Language
+		if (options.language) {
+			modal.setAttribute('lang', options.language);
+		}
 		// Subtitles
 		$modal.find('.modal-title').text(options.title);
 		$modal.find('.modal-body').text(options.question);
@@ -415,6 +429,10 @@
 			if ('fullStop' in options) {
 				defaultOptions.fullStop = !!options.fullStop;
 			}
+			// Set language option
+			if ('language' in options) {
+				defaultOptions.language = options.language ? '' + options.language : undefined;
+			}
 			// Set text options
 			if (options.text && typeof options.text === 'object') {
 				for (var option in defaultOptions.text) {
@@ -481,6 +499,10 @@
 
 		// Full stop (default: true)
 		fullStop: true,
+
+		// Language (default: undefined)
+		// Required only if the language of the confirmation request differs from the language of the page.
+		language: undefined,
 
 		// Texts
 		text: {
