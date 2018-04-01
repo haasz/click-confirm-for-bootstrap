@@ -46,6 +46,7 @@
 		mode: 2,
 		fullStop: true,
 		language: undefined,
+		htmlEnabled: false,
 		text: {
 			title: 'Confirm',
 			question: 'Are you sure you want to click on it?',
@@ -106,6 +107,18 @@
 		return defaultOptions.language;
 	}
 
+	function getHtmlEnabled(clickedElement) {
+		return !!(
+			clickedElement.hasAttribute('data-click-confirm-html-disabled')
+			? false
+			: (
+				clickedElement.hasAttribute('data-click-confirm-html-enabled')
+				||
+				defaultOptions.htmlEnabled
+			)
+		);
+	}
+
 	function getTextOption(clickedElement, option) {
 		return (
 			clickedElement.hasAttribute('data-click-confirm-text-' + option)
@@ -118,6 +131,7 @@
 		return {
 			clickedElement: clickedElement,
 			language: getLanguageOption(clickedElement),
+			htmlEnabled: getHtmlEnabled(clickedElement),
 			title: getTextOption(clickedElement, 'title'),
 			question: getTextOption(clickedElement, 'question'),
 			no: getTextOption(clickedElement, 'no'),
@@ -141,12 +155,13 @@
 		if (options.language) {
 			modal.setAttribute('lang', options.language);
 		}
+		// Text method (text or html)
+		var textMethod = options.htmlEnabled ? 'html' : 'text';
 		// Subtitles
-		$modal.find('.modal-title').text(options.title);
-		$modal.find('.modal-body').text(options.question);
-		$modal.find('.modal-footer .btn-default').text(options.no);
-		$modal.find('.modal-footer .btn-primary')
-			.text(options.ok)
+		$modal.find('.modal-title')[textMethod](options.title);
+		$modal.find('.modal-body')[textMethod](options.question);
+		$modal.find('.modal-footer .btn-default')[textMethod](options.no);
+		$modal.find('.modal-footer .btn-primary')[textMethod](options.ok)
 		// Function
 			.click(function (event) {
 				$modal
@@ -433,6 +448,10 @@
 			if ('language' in options) {
 				defaultOptions.language = options.language ? '' + options.language : undefined;
 			}
+			// Set htmlEnabled option
+			if ('htmlEnabled' in options) {
+				defaultOptions.htmlEnabled = !!options.htmlEnabled;
+			}
 			// Set text options
 			if (options.text && typeof options.text === 'object') {
 				for (var option in defaultOptions.text) {
@@ -503,6 +522,9 @@
 		// Language (default: undefined)
 		// Required only if the language of the confirmation request differs from the language of the page.
 		language: undefined,
+
+		// HTML enabled (default: false)
+		htmlEnabled: false,
 
 		// Texts
 		text: {
