@@ -1,6 +1,6 @@
 {
   "name": "click-confirm-for-bootstrap",
-  "version": "2.9.1",
+  "version": "2.9.2",
   "description": "Click confirm (for Bootstrap)",
   "main": "dist/click-confirm.js",
   "repository": {
