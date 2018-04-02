@@ -1,14 +1,14 @@
 <div>
-	<h1 align="center">
-		<a href="https://gitlab.com/haasz/click-confirm-for-bootstrap">Click confirm</a>
-		<small>(for Bootstrap)</small>
-	</h1>
+<h1 align="center">
+	<a href="https://gitlab.com/haasz/click-confirm-for-bootstrap">Click confirm</a>
+	<small>(for Bootstrap)</small>
+</h1>
 
-	<p align="center">
-		<a href="https://www.npmjs.com/package/click-confirm-for-bootstrap"><img src="https://img.shields.io/npm/v/click-confirm-for-bootstrap.svg" alt="npm version"></a>
-		<a href="https://www.npmjs.com/package/click-confirm-for-bootstrap"><img src="https://img.shields.io/npm/l/click-confirm-for-bootstrap.svg" alt="npm license"></a>
-		<a href="https://www.npmjs.com/package/click-confirm-for-bootstrap"><img src="https://img.shields.io/npm/dt/click-confirm-for-bootstrap.svg" alt="npm downloads"></a>
-	</p>
+<p align="center">
+	<a href="https://www.npmjs.com/package/click-confirm-for-bootstrap"><img src="https://img.shields.io/npm/v/click-confirm-for-bootstrap.svg" alt="npm version"></a>
+	<a href="https://www.npmjs.com/package/click-confirm-for-bootstrap"><img src="https://img.shields.io/npm/l/click-confirm-for-bootstrap.svg" alt="npm license"></a>
+	<a href="https://www.npmjs.com/package/click-confirm-for-bootstrap"><img src="https://img.shields.io/npm/dt/click-confirm-for-bootstrap.svg" alt="npm downloads"></a>
+</p>
 </div>
 
 ## Requirements
