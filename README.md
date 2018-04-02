@@ -1,7 +1,9 @@
-<h1 align="center">
-	<a href="https://gitlab.com/haasz/click-confirm-for-bootstrap">Click confirm</a>
-	<small>(for Bootstrap)</small>
-</h1>
+<div>
+	<h1 align="center">
+		<a href="https://gitlab.com/haasz/click-confirm-for-bootstrap">Click confirm</a>
+		<small>(for Bootstrap)</small>
+	</h1>
+</div>
 
 ## Requirements
 
